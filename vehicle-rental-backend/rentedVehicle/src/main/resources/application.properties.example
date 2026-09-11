@@ -1,0 +1,11 @@
+# Example Spring Boot Configuration for Production / Render Deployment
+spring.application.name=rentedVehicle
+
+# Set MONGODB_URI in your deployment platform's Environment Variables (e.g. Render Dashboard)
+spring.mongodb.uri=${MONGODB_URI}
+spring.mongodb.database=${MONGODB_DATABASE:rentwheels}
+
+spring.data.mongodb.uri=${MONGODB_URI}
+spring.data.mongodb.database=${MONGODB_DATABASE:rentwheels}
+
+server.port=${PORT:8080}

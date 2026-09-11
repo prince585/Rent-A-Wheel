@@ -1,0 +1,27 @@
+# Secrets & Environment Configurations
+application-local.properties
+**/application-local.properties
+.env
+*.env
+
+# Maven & Build Artifacts
+target/
+**/target/
+build/
+**/build/
+*.log
+
+# IDE & Editor Settings
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS & Temporary Files
+.DS_Store
+Thumbs.db
+scratch/

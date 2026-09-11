@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RentWheels Active Rental Cockpit — Live Odometer Meter">
+  <title>Active Rental Cockpit | RentWheels</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div>Rent<span>Wheels</span></div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Available Fleet</a></li>
+          <li>
+            <a href="rental.html" class="nav-link active">
+              Active Rental
+              <span id="nav-active-rental-badge" class="nav-rental-badge">Live Ride</span>
+            </a>
+          </li>
+          <li><a href="vehicles.html" class="nav-link">Fleet Manager</a></li>
+          <li><a href="history.html" class="nav-link">Rental History</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="user-selector-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <select id="global-user-select" title="Active Renter Account">
+            <option value="">Loading users...</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="rental-cockpit">
+
+      <!-- Active Rental View (Shown when a rental is active) -->
+      <div id="active-cockpit-view" style="display: none;">
+        <div class="cockpit-instrument">
+          <div class="instrument-top">
+            <div>
+              <div class="instrument-status">
+                <span class="pulse-indicator"></span>
+                <span>Active Ride Metering</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-meter); margin-top: 0.4rem;" id="cockpit-rental-id">Rental ID: --</p>
+            </div>
+
+            <div style="text-align: right;">
+              <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Active Renter</span>
+              <div style="font-weight: 700; color: var(--text-primary);" id="cockpit-renter-name">Loading...</div>
+            </div>
+          </div>
+
+          <!-- Odometer Live Meters -->
+          <div class="odometer-grid">
+            <div class="odometer-box">
+              <div class="odometer-label">Elapsed Ride Time</div>
+              <div class="odometer-value" id="cockpit-timer">00:00:00</div>
+              <div class="odometer-sub">Started: <span id="cockpit-start-time">--</span></div>
+            </div>
+
+            <div class="odometer-box">
+              <div class="odometer-label">Live Billed Meter</div>
+              <div class="odometer-value" id="cockpit-bill">₹0.00</div>
+              <div class="odometer-sub">Rate: <span id="cockpit-rate-display">₹0.00/hr</span> (<span id="cockpit-per-min">₹0.00/min</span>)</div>
+            </div>
+          </div>
+
+          <!-- Vehicle Summary Strip -->
+          <div class="cockpit-vehicle-strip">
+            <img id="cockpit-vehicle-img" src="" alt="Vehicle" class="cockpit-thumb">
+            <div>
+              <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;" id="cockpit-vehicle-brand">Brand</div>
+              <h3 id="cockpit-vehicle-model" style="font-size: 1.15rem;">Model Name</h3>
+              <p id="cockpit-vehicle-specs" style="font-size: 0.8rem; color: var(--text-secondary);">Specs...</p>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div style="text-align: center;">
+            <button id="return-vehicle-btn" class="btn btn-danger" style="padding: 0.85rem 2rem; font-size: 0.95rem; width: 100%; max-width: 440px;">
+              <span>Return Vehicle &amp; Stop Meter</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State View -->
+      <div id="empty-cockpit-view" class="cockpit-instrument" style="display: none; text-align: center; padding: 3.5rem 2rem;">
+        <h2 style="margin-bottom: 0.5rem;">No Active Meter Running</h2>
+        <p style="color: var(--text-secondary); max-width: 460px; margin: 0 auto 1.5rem; font-size: 0.9rem;">
+          You don't have an active rental session in progress. Select an available car or motorcycle from our fleet to start metering.
+        </p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+          <a href="index.html" class="btn btn-primary">Browse Available Fleet</a>
+          <a href="history.html" class="btn btn-secondary">View Past Rentals</a>
+        </div>
+
+        <div style="margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); max-width: 360px; margin-left: auto; margin-right: auto;">
+          <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Load Active Rental ID</span>
+          <div style="display: flex; gap: 0.4rem; margin-top: 0.4rem;">
+            <input type="text" id="manual-rental-id" class="form-input" placeholder="Paste Rental ID...">
+            <button id="load-manual-rental-btn" class="btn btn-secondary" style="white-space: nowrap;">Load</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Final Invoice Receipt Modal -->
+  <div id="receipt-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 460px;">
+      <div class="modal-header">
+        <h2>Trip Invoice &amp; Settlement</h2>
+      </div>
+
+      <div style="background: var(--bg-main); border: 1px solid var(--border-subtle); border-radius: 0.35rem; padding: 1.25rem; margin-bottom: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.5rem;">
+          <span style="color: var(--text-muted);">Rental ID</span>
+          <strong id="receipt-rental-id" style="font-family: var(--font-meter); color: var(--text-primary);">--</strong>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.5rem;">
+          <span style="color: var(--text-muted);">Billed Duration</span>
+          <strong id="receipt-duration" style="color: var(--text-primary);">0 mins</strong>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.75rem;">
+          <span style="color: var(--text-muted);">Hourly Rate</span>
+          <strong id="receipt-rate" style="color: var(--text-primary);">₹0.00 / hr</strong>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+          <span style="color: var(--text-primary); font-weight: 700;">Final Billed Amount</span>
+          <div style="font-family: var(--font-meter); font-size: 1.6rem; font-weight: 700; color: #3fb950;" id="receipt-total">
+            ₹0.00
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem;">
+        <a href="history.html" class="btn btn-secondary" style="flex: 1;">View History</a>
+        <a href="index.html" class="btn btn-primary" style="flex: 1;">Rent Another</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>RentWheels &copy; 2026 — Real-Time Authoritative Metering</p>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/rental.js"></script>
+</body>
+</html>
