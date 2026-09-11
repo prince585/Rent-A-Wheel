@@ -156,13 +156,7 @@ Here are the core REST endpoints available in the system:
 ### Users
 - `GET /api/users/{id}/rentals` - Get rental history for a user
 
----
 
-## 🌐 Deployment
-
-For complete instructions on deploying the backend to **Render** and the frontend to **Vercel/Netlify**, please refer to our detailed [Deployment Guide](DEPLOYMENT.md).
-
----
 
 <div align="center">
   <i>Built with ❤️ using Java & Spring Boot</i>
