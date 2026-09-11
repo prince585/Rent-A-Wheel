@@ -47,12 +47,12 @@ The backend is completely authoritative, ensuring secure and precise billing cal
 
 ```mermaid
 graph TD
-    Client[Frontend (HTML/CSS/JS)]
-    API[Spring Boot REST API]
-    Controller[Controller Layer]
-    Service[Service Layer]
-    Repo[Repository Layer]
-    DB[(MongoDB Atlas)]
+    Client["Frontend (HTML/CSS/JS)"]
+    API["Spring Boot REST API"]
+    Controller["Controller Layer"]
+    Service["Service Layer"]
+    Repo["Repository Layer"]
+    DB[("MongoDB Atlas")]
 
     Client <-->|HTTP JSON| API
     API <--> Controller
